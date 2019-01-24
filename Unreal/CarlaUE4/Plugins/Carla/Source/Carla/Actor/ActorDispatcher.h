@@ -70,12 +70,6 @@ public:
     return Registry;
   }
 
-  void SetRecorder(carla::recorder::Recorder *recorder)
-  {
-    Recorder = recorder;
-  }
-
-
 private:
 
   TArray<FActorDefinition> Definitions;
@@ -86,5 +80,4 @@ private:
 
   FActorRegistry Registry;
 
-  carla::recorder::Recorder *Recorder { nullptr };
 };

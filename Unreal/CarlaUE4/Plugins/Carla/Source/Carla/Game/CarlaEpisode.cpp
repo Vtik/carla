@@ -97,4 +97,11 @@ void UCarlaEpisode::InitializeAtBeginPlay()
     Description.Class = Actor->GetClass();
     ActorDispatcher.GetActorRegistry().Register(*Actor, Description);
   }
+
+    Replayer.setCallbackEventAdd([](/*carla::geom::Transform transform, 
+        carla::recorder::RecorderActorDescription description*/) -> bool {
+      UE_LOG(LogCarla, Log, TEXT("Actor created by replayer"));
+      return true;
+    });
+    UE_LOG(LogCarla, Log, TEXT("Registering Replayer callbacks"));
 }

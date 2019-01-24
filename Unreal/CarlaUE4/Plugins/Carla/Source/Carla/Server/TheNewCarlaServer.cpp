@@ -111,6 +111,14 @@ private:
     {
       RespondErrorStr("unable to attach actor: parent actor not found");
     }
+
+    // recorder event
+    crec::RecorderEventParent recEvent { 
+      Child.GetActorId(),
+      Parent.GetActorId()
+    };
+    Episode->GetRecorder().addEvent(recEvent);
+
     ::AttachActors(Child.GetActor(), Parent.GetActor());
   }
 
@@ -388,17 +396,31 @@ void FTheNewCarlaServer::FPimpl::BindActions()
     Controller->SetAutopilot(bEnabled);
   });
 
-  Server.BindSync("start_recorder", [this]() -> std::string {
+  Server.BindSync("start_recorder", [this](std::string name) -> std::string {
     RequireEpisode();
     return Episode->GetRecorder().start(
       carla::rpc::FromFString(FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir())),
-      carla::rpc::FromFString(Episode->GetMapName())
-    );
+      name);
   });
 
   Server.BindSync("stop_recorder", [this]() {
     RequireEpisode();
     Episode->GetRecorder().stop();
+  });
+
+  Server.BindSync("show_recorder_file_info", [this](std::string name) -> std::string {
+    RequireEpisode();
+    return Episode->GetRecorder().showFileInfo(
+      carla::rpc::FromFString(FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir())),
+      name);
+  });
+
+  Server.BindSync("replay_file", [this](std::string name, double time) -> std::string {
+    RequireEpisode();
+    return Episode->GetRecorder().replayFile(
+      carla::rpc::FromFString(FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir())),
+      name,
+      time);
   });
 
   Server.BindSync("draw_debug_shape", [this](const cr::DebugShape &shape) {
