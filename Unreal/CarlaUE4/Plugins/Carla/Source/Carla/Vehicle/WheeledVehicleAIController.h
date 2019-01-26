@@ -29,9 +29,10 @@ class CARLA_API AWheeledVehicleAIController : public APlayerController
   /// @name Constructor and destructor
   // ===========================================================================
   /// @{
+
 public:
 
-  AWheeledVehicleAIController(const FObjectInitializer& ObjectInitializer);
+  AWheeledVehicleAIController(const FObjectInitializer &ObjectInitializer);
 
   ~AWheeledVehicleAIController();
 
@@ -40,6 +41,7 @@ public:
   /// @name APlayerController overrides
   // ===========================================================================
   /// @{
+
 public:
 
   void Possess(APawn *aPawn) override;
@@ -53,6 +55,7 @@ public:
   /// @name Possessed vehicle
   // ===========================================================================
   /// @{
+
 public:
 
   UFUNCTION(Category = "Wheeled Vehicle Controller", BlueprintCallable)
@@ -83,6 +86,7 @@ public:
   /// @name Road map
   // ===========================================================================
   /// @{
+
 public:
 
   void SetRoadMap(URoadMap *InRoadMap)
@@ -101,6 +105,7 @@ public:
   /// @name Random engine
   // ===========================================================================
   /// @{
+
 public:
 
   UFUNCTION(Category = "Random Engine", BlueprintCallable)
@@ -115,6 +120,7 @@ public:
   /// @name Autopilot
   // ===========================================================================
   /// @{
+
 public:
 
   UFUNCTION(Category = "Wheeled Vehicle Controller", BlueprintCallable)
@@ -126,7 +132,8 @@ public:
   UFUNCTION(Category = "Wheeled Vehicle Controller", BlueprintCallable)
   void SetAutopilot(bool Enable)
   {
-    if (IsAutopilotEnabled() != Enable) {
+    if (IsAutopilotEnabled() != Enable)
+    {
       ConfigureAutopilot(Enable);
     }
   }
@@ -146,6 +153,7 @@ private:
   /// @name Traffic
   // ===========================================================================
   /// @{
+
 public:
 
   /// Get current speed limit in km/h.
@@ -178,7 +186,7 @@ public:
 
   /// Set a fixed route to follow if autopilot is enabled.
   UFUNCTION(Category = "Wheeled Vehicle Controller", BlueprintCallable)
-  void SetFixedRoute(const TArray<FVector> &Locations, bool bOverwriteCurrent=true);
+  void SetFixedRoute(const TArray<FVector> &Locations, bool bOverwriteCurrent = true);
 
   /// @}
   // ===========================================================================
@@ -212,6 +220,7 @@ private:
   // ===========================================================================
   // -- Member variables -------------------------------------------------------
   // ===========================================================================
+
 private:
 
   UPROPERTY()
